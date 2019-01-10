@@ -1,0 +1,73 @@
+import processing.core.PApplet;
+
+public class TheGame extends PApplet {
+
+	// dimensions
+	int xMax = 1200;
+	int yMax = 800;
+
+	// other variables
+	int frameCount;
+	int score = 0;
+	int highScore = 0;
+
+	DropZone dz;
+
+	public void setup() {
+		size(xMax, yMax);
+
+		dz = new DropZone(this);
+
+	}
+
+	public void draw() {
+		// set background
+		background(255, 255, 255);
+
+		// let the dropzone move
+		dz.move();
+
+		// score goes up by 1 point every second the cursor is in the dropzone
+		if (mouseX > dz.xPos && mouseX < dz.xPos + dz.xSize && mouseY > dz.yPos && mouseY < dz.yPos + dz.xSize) {
+			frameCount++;
+		}
+		if (frameCount % 60 == 1) {
+			score += 1;
+		}
+
+		// resets game if cursor leaves
+		if (mouseX < dz.xPos || mouseX > dz.xPos + dz.xSize || mouseY < dz.yPos || mouseY > dz.yPos + dz.xSize) {
+			if (score > highScore)
+				highScore = score;
+			score = 0;
+			dz.xSize = 400;
+			dz.xSpeed = 3;
+			dz.ySpeed = 2;
+		}
+
+		// shrinks and speeds up the dropzone every 3 seconds
+		if (frameCount > 180 && frameCount % 181 == 1) {
+			dz.xSize -= 20;
+			dz.xSpeed *= 1.1;
+			dz.ySpeed *= 1.1;
+		}
+
+		// displays the score inside the dropzone
+		textSize(50);
+		fill(255, 0, 0);
+		textAlign(RIGHT);
+		text(score, dz.xPos + dz.xSize, dz.yPos + dz.xSize);
+
+		// displays text and highscore
+		textSize(40);
+		fill(0, 0, 0);
+		textAlign(CENTER);
+		text("Stay in the drop zone for points!", 600, 100);
+		textSize(30);
+		fill(0, 0, 0);
+		textAlign(CENTER);
+		text("HIGHSCORE: " + highScore, 600, 150);
+
+	}
+
+}
