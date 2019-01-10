@@ -16,7 +16,7 @@
  *
  * To run this in Eclipse, you must have the 'core.jar' file in your Java project folder
  * After putting the file in the project folder: right click the same folder, 
- * go to Build Path > Configure Build Path > Add JARs > now select the 'core.jar' file you just added
+ * go to Build Path > Configure Build Path > the Libraries tab > Add JARs > now select the 'core.jar' file you just added
  * You will know it is ready to run if a new folder called 'Referenced Libraries' appeared in the project file
  * The code will now run successfully
  *
