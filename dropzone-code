@@ -1,0 +1,58 @@
+import processing.core.PApplet;
+
+public class DropZone {
+
+	float xPos;
+	float yPos;
+	float xSpeed;
+	float ySpeed;
+	float xSize;
+
+	private PApplet screen;
+
+	int color;
+
+	public DropZone(PApplet screen) { // dropzone constructor
+		this.screen = screen;
+		xPos = screen.random(0, screen.width);
+		yPos = screen.random(0, screen.height);
+		xSize = 400;
+		xSpeed = 3;
+		ySpeed = 2;
+		color = screen.color(0, 0, 255);
+
+	}
+
+	public void move() {
+		// moves the dropzone
+		xPos += xSpeed;
+		yPos += ySpeed;
+
+		// allows dropzone to bounce off walls
+		if (xPos > screen.width - xSize) {
+			xPos = screen.width - xSize;
+			xSpeed *= -1;
+
+		}
+		if (xPos < 0) {
+			xPos = 0;
+			xSpeed *= -1;
+
+		}
+		if (yPos > screen.height - xSize) {
+			yPos = screen.height - xSize;
+			ySpeed *= -1;
+
+		}
+		if (yPos < 0) {
+			yPos = 0;
+			ySpeed *= -1;
+
+		}
+
+		screen.fill(color);
+
+		screen.rect(xPos, yPos, xSize, xSize);
+	}
+
+}
